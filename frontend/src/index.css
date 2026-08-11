@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+@theme {
+  /* Type */
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Clinical palette — cool sage/teal, not warm cream+terracotta */
+  --color-paper: #F5F8F7;
+  --color-paper-dim: #EAF0EE;
+  --color-ink: #14231F;
+  --color-ink-soft: #4B5D58;
+  --color-teal: #0E6B5C;
+  --color-teal-deep: #0A4F45;
+  --color-teal-soft: #E3F1EC;
+  --color-amber: #D98F2B;
+  --color-amber-soft: #FBEEDA;
+  --color-rose: #C1443A;
+  --color-rose-soft: #FBEAE8;
+  --color-mist: #52738A;
+  --color-mist-soft: #E7EEF2;
+  --color-line: #D8E2DE;
+
+  /* Dark mode surfaces */
+  --color-paper-dark: #0F1917;
+  --color-paper-dim-dark: #16211E;
+  --color-ink-dark: #E7EFEC;
+  --color-ink-soft-dark: #9DB0AB;
+  --color-line-dark: #24322E;
+}
+
+html {
+  color-scheme: light;
+}
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+html.dark body {
+  background-color: var(--color-paper-dark);
+  color: var(--color-ink-dark);
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono-data {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-thumb { background: var(--color-line); border-radius: 999px; }
+html.dark ::-webkit-scrollbar-thumb { background: var(--color-line-dark); }
+
+/* Vitals pipeline pulse — signature motif for the live agent trace */
+@keyframes pulse-node {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14, 107, 92, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(14, 107, 92, 0); }
+}
+.pulse-node {
+  animation: pulse-node 1.6s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise-in {
+  animation: rise-in 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-node, .rise-in { animation: none; }
+}
